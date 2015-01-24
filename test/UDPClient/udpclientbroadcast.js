@@ -6,7 +6,7 @@ var serverPort = 1010;
 var hostData = {
     hostId: '2A44F',
     capabilities:{
-        relay: 4
+        relay: 5
     }
 };
 

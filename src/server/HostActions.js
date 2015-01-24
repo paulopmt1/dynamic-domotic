@@ -26,9 +26,27 @@ module.exports = {
             });
         });
     },
+    updateHostRecord: function(hostData, callback){
+        MongoClient.connect(url, function (err, db) {
+            var collection = db.collection('hosts');
+
+            collection.update({hostId: hostData.hostId},
+            {
+                $set : {
+                    hostIP: hostData.hostIP,
+                    capabilities: hostData.capabilities
+                } 
+            }, function (err, result) {
+                assert.equal(err, null);
+                callback(result);
+            });
+        });
+    },
     
-    registerNewHost: function (remoteAddress, hostObject) {
+    proccessHostRegisterRequest: function (remoteAddress, hostObject) {
         var hostId = hostObject.hostId;
+        // Concatena IP do host
+        hostObject.hostIP = remoteAddress;
         var that = this;
 
         if (!hostId) {
@@ -44,10 +62,17 @@ module.exports = {
                     }
                 });
             }else{
-                
                 console.log('vou atualizar os dados deste host');
+                
+                that.updateHostRecord(hostObject, function(status){
+                    console.log('IP do host ' + remoteAddress + ' atualizados com sucesso');
+                    
+                    that.findHostById(hostId, function(data){
+                        console.log('novos dados: ');
+                        console.log(data);
+                    })
+                });
             }
         });
-
     }
 };

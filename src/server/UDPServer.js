@@ -16,7 +16,7 @@ server.on("message", function (msg, rinfo) {
     
     var jsonData = JSON.parse(msg);
     
-    HostActions.registerNewHost(rinfo.address, jsonData);
+    HostActions.proccessHostRegisterRequest(rinfo.address, jsonData);
 });
 
 server.on("listening", function () {
