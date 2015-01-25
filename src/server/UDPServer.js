@@ -3,7 +3,7 @@ var serverPort = 1010;
 var dgram = require("dgram");
 var server = dgram.createSocket("udp4");
 
-HostActions = require('./HostActions');
+ServerActions = require('./ServerActions');
 
 
 server.on("error", function (err) {
@@ -16,7 +16,7 @@ server.on("message", function (msg, rinfo) {
     
     var jsonData = JSON.parse(msg);
     
-    HostActions.proccessHostRegisterRequest(rinfo.address, jsonData);
+    ServerActions.proccessHostRegisterRequest(rinfo.address, jsonData);
 });
 
 server.on("listening", function () {
