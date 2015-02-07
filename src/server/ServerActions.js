@@ -1,48 +1,16 @@
-var MongoClient = require('mongodb').MongoClient
-        , assert = require('assert');
-var http = require('http');
+/**
+ * Processa todas as ações do servidor
+ */
 
-var url = 'mongodb://localhost:27017/myproject';
+var assert = require('assert');
+var http = require('http');
+var formidable = require('formidable')
+
+var CLIENT_REGISTER_TIMEOUT = 1000;
+var clientPort = 8080;
+Host = require('./db/Host');
 
 module.exports = {
-    findHostById: function (hostId, callback) {
-        MongoClient.connect(url, function (err, db) {
-            assert.equal(null, err);
-
-            var collection = db.collection('hosts');
-
-            collection.findOne({"hostId": hostId}, function (err, doc) {
-                assert.equal(err, null);
-                callback(doc);
-            });
-        });
-    },
-    createNewHostRecord: function (hostData, callback) {
-        MongoClient.connect(url, function (err, db) {
-            var collection = db.collection('hosts');
-
-            collection.insert(hostData, function (err, result) {
-                assert.equal(err, null);
-                callback(result);
-            });
-        });
-    },
-    updateHostRecord: function (hostData, callback) {
-        MongoClient.connect(url, function (err, db) {
-            var collection = db.collection('hosts');
-
-            collection.update({hostId: hostData.hostId},
-            {
-                $set: {
-                    hostIP: hostData.hostIP,
-                    capabilities: hostData.capabilities
-                }
-            }, function (err, result) {
-                assert.equal(err, null);
-                callback(result);
-            });
-        });
-    },
     proccessHostRegisterRequest: function (remoteAddress, hostObject) {
         var hostId = hostObject.hostId;
         // Concatena IP do host
@@ -53,10 +21,10 @@ module.exports = {
             throw new Error('Não foi recebido o hostId neste request. Abortado');
         }
 
-        this.findHostById(hostId, function (data) {
+        Host.findHostById(hostId, function (data) {
             if (!data) {
                 console.log("vou armazenar os dados vindos de " + remoteAddress);
-                that.createNewHostRecord(hostObject, function (status) {
+                Host.createNewHostRecord(hostObject, function (status) {
                     if (status) {
                         console.log('dados vindos do host ' + remoteAddress + ' cadastrados com sucesso');
                     }
@@ -66,10 +34,10 @@ module.exports = {
             } else {
                 console.log('vou atualizar os dados deste host');
 
-                that.updateHostRecord(hostObject, function (status) {
+                Host.updateHostRecord(hostObject, function (status) {
                     console.log('IP do host ' + remoteAddress + ' atualizados com sucesso');
 
-                    that.findHostById(hostId, function (data) {
+                    Host.findHostById(hostId, function (data) {
                         console.log('novos dados: ');
                         console.log(data);
 
@@ -93,7 +61,7 @@ module.exports = {
             host: clientIP,
             path: '/registerOK',
             method: 'GET',
-            port: 8080
+            port: clientPort
         };
 
         console.log('enviando confirmação para cliente: ' + clientIP);
@@ -118,6 +86,6 @@ module.exports = {
         setTimeout(function(){
             console.log('enviando agora');
             http.request(options, callback).end();
-        }, 3000);
+        }, CLIENT_REGISTER_TIMEOUT);
     }
 };

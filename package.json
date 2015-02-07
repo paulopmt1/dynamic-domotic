@@ -8,7 +8,8 @@
     "url": "https://github.com/paulopmt1/dynamic-domotic.git"
   },
   "dependencies": {
-    "mongodb": "~2.0"
+    "mongodb": "~2.0",
+    "formidable": "1.0.16"
   },
   "author": "Paulo Trentin",
   "license": "Apache 2.0",
