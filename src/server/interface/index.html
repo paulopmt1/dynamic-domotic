@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <script src="blockly_compressed.js"></script>
+        <script src="blocks_compressed.js"></script>
+        <script src="pt-br.js"></script>
+    </head>
+    <body>
+        <div id="blocklyDiv" style="height: 580px; width: 1000px;"></div>
+        <xml id="toolbox" style="display: none">
+          <block type="controls_if"></block>
+          <block type="controls_repeat_ext"></block>
+          <block type="logic_compare"></block>
+          <block type="math_number"></block>
+          <block type="math_arithmetic"></block>
+          <block type="text_print"></block>
+          <block type="action_block"></block>
+          <block type="math_foo"></block>
+        </xml>
+
+        <script>
+            // Código https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#ezp9c4
+            Blockly.Blocks['action_block'] = {
+                init: function() {
+                  this.setHelpUrl('http://www.example.com/');
+                  this.setColour(240);
+                  this.appendDummyInput()
+                      .appendField("Quando")
+                      .appendField(new Blockly.FieldDropdown([["Placa 1", "Host1"], ["Placa 2", "Host2"], ["Placa 3", "Host3"]]), "host_id")
+                      .appendField(".")
+                      .appendField(new Blockly.FieldDropdown([["Sensor 1", "OPTIONNAME"], ["Sensor 2", "OPTIONNAME"], ["Sensor 3", "OPTIONNAME"]]), "sensor_id")
+                      .appendField(".")
+                      .appendField("Receber algo");
+                  this.appendStatementInput("NAME")
+                      .appendField("Faça");
+                  this.setTooltip('');
+                }
+            };
+            
+            // Código https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#zbgrb5
+            Blockly.Blocks['math_foo'] = {
+                init: function() {
+                  this.setHelpUrl('http://www.example.com/');
+                  this.setColour(20);
+                  this.appendDummyInput()
+                      .appendField("Defina")
+                      .appendField(new Blockly.FieldDropdown([["Placa 1", "OPTIONNAME"], ["Placa 2", "OPTIONNAME"], ["Placa 3", "OPTIONNAME"]]), "NAME")
+                      .appendField(".")
+                      .appendField(new Blockly.FieldDropdown([["Atuador 1", "OPTIONNAME"], ["Atuador 2", "OPTIONNAME"], ["Atuador 3", "OPTIONNAME"]]), "NAME")
+                      .appendField(". Para");
+                  this.appendValueInput("NAME")
+                      .setCheck(["Boolean", "Number"]);
+                  this.setInputsInline(true);
+                  this.setPreviousStatement(true);
+                  this.setTooltip('');
+                }
+              };
+            
+            Blockly.inject(
+                document.getElementById('blocklyDiv'), {
+                        toolbox: document.getElementById('toolbox')
+                }
+            );
+              
+        </script>
+    </body>
+</html>
