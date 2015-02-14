@@ -3,65 +3,133 @@
         <meta charset="utf-8" />
         <script src="blockly_compressed.js"></script>
         <script src="blocks_compressed.js"></script>
+        <script src="javascript_compressed.js"></script>
+        <script src="generators/JavaScript/test.js"></script>
         <script src="pt-br.js"></script>
     </head>
     <body>
         <div id="blocklyDiv" style="height: 580px; width: 1000px;"></div>
         <xml id="toolbox" style="display: none">
-          <block type="controls_if"></block>
-          <block type="controls_repeat_ext"></block>
-          <block type="logic_compare"></block>
-          <block type="math_number"></block>
-          <block type="math_arithmetic"></block>
-          <block type="text_print"></block>
-          <block type="action_block"></block>
-          <block type="math_foo"></block>
+            <category name="Core">
+                <category name="Logic">
+                    <block type="controls_if"></block>
+                    <block type="logic_compare"></block>
+                    <block type="logic_operation"></block>
+                    <block type="logic_negate"></block>
+                    <block type="logic_boolean"></block>
+                </category>
+                <category name="Loops">
+                    <block type="controls_repeat_ext">
+                        <value name="TIMES">
+                            <block type="math_number">
+                                <field name="NUM">10</field>
+                            </block>
+                        </value>
+                    </block>
+                    <block type="controls_whileUntil"></block>
+                </category>
+                <category name="Math">
+                    <block type="math_number"></block>
+                    <block type="math_arithmetic"></block>
+                    <block type="math_single"></block>
+                </category>
+                <category name="Text">
+                    <block type="text"></block>
+                    <block type="text_length"></block>
+                    <block type="text_print"></block>
+                </category>
+            </category>
+            <sep></sep>
+            <category name="Casa">
+                <category name="Placa Lâmpadas">
+                    <block type="relay_board_2"></block>
+                </category>
+                <category name="Placa Sensores">
+                    <block type="action_block_2"></block>
+                </category>
+                <category name="Placa Garagem">
+                    <block type="action_block_1"></block>
+                    <block type="relay_board_1"></block>
+                </category>
+            </category>
         </xml>
 
         <script>
-            // Código https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#ezp9c4
-            Blockly.Blocks['action_block'] = {
-                init: function() {
-                  this.setHelpUrl('http://www.example.com/');
-                  this.setColour(240);
-                  this.appendDummyInput()
-                      .appendField("Quando")
-                      .appendField(new Blockly.FieldDropdown([["Placa 1", "Host1"], ["Placa 2", "Host2"], ["Placa 3", "Host3"]]), "host_id")
-                      .appendField(".")
-                      .appendField(new Blockly.FieldDropdown([["Sensor 1", "OPTIONNAME"], ["Sensor 2", "OPTIONNAME"], ["Sensor 3", "OPTIONNAME"]]), "sensor_id")
-                      .appendField(".")
-                      .appendField("Receber algo");
-                  this.appendStatementInput("NAME")
-                      .appendField("Faça");
-                  this.setTooltip('');
+            // Código https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#vdasu2
+            Blockly.Blocks['action_block_1'] = {
+                init: function () {
+                    this.setHelpUrl('http://www.example.com/');
+                    this.setColour(240);
+                    this.appendDummyInput()
+                            .appendField("Quando Placa Garagem")
+                            .appendField(".")
+                            .appendField(new Blockly.FieldDropdown([["Sensor 1", "SENSOR_1"], ["Sensor 2", "SENSOR_2"], ["Sensor 3", "SENSOR_3"]]), "sensor_id")
+                            .appendField(".")
+                            .appendField("Receber algo");
+                    this.appendStatementInput("NAME")
+                            .appendField("Faça");
+                    this.setTooltip('');
                 }
             };
-            
-            // Código https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#zbgrb5
-            Blockly.Blocks['math_foo'] = {
-                init: function() {
-                  this.setHelpUrl('http://www.example.com/');
-                  this.setColour(20);
-                  this.appendDummyInput()
-                      .appendField("Defina")
-                      .appendField(new Blockly.FieldDropdown([["Placa 1", "OPTIONNAME"], ["Placa 2", "OPTIONNAME"], ["Placa 3", "OPTIONNAME"]]), "NAME")
-                      .appendField(".")
-                      .appendField(new Blockly.FieldDropdown([["Atuador 1", "OPTIONNAME"], ["Atuador 2", "OPTIONNAME"], ["Atuador 3", "OPTIONNAME"]]), "NAME")
-                      .appendField(". Para");
-                  this.appendValueInput("NAME")
-                      .setCheck(["Boolean", "Number"]);
-                  this.setInputsInline(true);
-                  this.setPreviousStatement(true);
-                  this.setTooltip('');
+            Blockly.Blocks['action_block_2'] = {
+                init: function () {
+                    this.setHelpUrl('http://www.example.com/');
+                    this.setColour(240);
+                    this.appendDummyInput()
+                            .appendField("Quando Placa Sensores")
+                            .appendField(".")
+                            .appendField(new Blockly.FieldDropdown([["Sensor 1", "SENSOR_1"], ["Sensor 2", "SENSOR_2"], ["Sensor 3", "SENSOR_3"]]), "sensor_id")
+                            .appendField(".")
+                            .appendField("Receber algo");
+                    this.appendStatementInput("NAME")
+                            .appendField("Faça");
+                    this.setTooltip('');
                 }
-              };
-            
+            };
+
+            // Código https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#3oaqht
+            Blockly.Blocks['relay_board_1'] = {
+                init: function () {
+                    this.setHelpUrl('http://www.example.com/');
+                    this.setColour(20);
+                    this.appendDummyInput()
+                            .appendField("Defina Placa Garagem")
+                            .appendField(".")
+                            .appendField(new Blockly.FieldDropdown([["Atuador 1", "RELAY_1"], ["Atuador 2", "RELAY_2"], ["Atuador 3", "RELAY_3"]]), "NAME")
+                            .appendField(". Para");
+                    this.appendValueInput("VALUE")
+                            .setCheck(["Boolean", "Number"]);
+                    this.setInputsInline(true);
+                    this.setPreviousStatement(true);
+                    this.setNextStatement(true);
+                    this.setTooltip('');
+                }
+            };
+            // Código https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#3oaqht
+            Blockly.Blocks['relay_board_2'] = {
+                init: function () {
+                    this.setHelpUrl('http://www.example.com/');
+                    this.setColour(20);
+                    this.appendDummyInput()
+                            .appendField("Defina Placa Lâmpadas")
+                            .appendField(".")
+                            .appendField(new Blockly.FieldDropdown([["Atuador 1", "RELAY_1"], ["Atuador 2", "RELAY_2"], ["Atuador 3", "RELAY_3"]]), "NAME")
+                            .appendField(". Para");
+                    this.appendValueInput("VALUE")
+                            .setCheck(["Boolean", "Number"]);
+                    this.setInputsInline(true);
+                    this.setPreviousStatement(true);
+                    this.setNextStatement(true);
+                    this.setTooltip('');
+                }
+            };
+
             Blockly.inject(
-                document.getElementById('blocklyDiv'), {
-                        toolbox: document.getElementById('toolbox')
-                }
+                    document.getElementById('blocklyDiv'), {
+                toolbox: document.getElementById('toolbox')
+            }
             );
-              
+
         </script>
-    </body>
+</body>
 </html>
