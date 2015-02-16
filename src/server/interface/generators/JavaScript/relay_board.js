@@ -3,7 +3,7 @@ Blockly.JavaScript['relay_board'] = function (block) {
             Blockly.JavaScript.ORDER_MEMBER) || '\'\'';
 
     var value = (argument1 == 'true') ? true : false;
-    var code = 'setRelay("' + block.getFieldValue('NAME') + '","' + value + '");\n';
+    var code = 'setRelay("' + block.getFieldValue('board_id') + '","' + block.getFieldValue('NAME') + '","' + value + '");\n';
 
     return code;
 };
