@@ -7,7 +7,7 @@ var querystring = require('querystring');
 
 
 var broadcastAddress = "192.168.5.255";
-var clientIP = "192.168.5.110";
+var clientIP = "192.168.5.104";
 var serverPort = 1010;
 var serverIP = undefined;
 var isRegistered = false;
