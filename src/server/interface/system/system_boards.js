@@ -9,21 +9,28 @@ Blockly.SystemBoards = {
         return options;
     },
     
+    getFirstBoardTuples: function(){
+        return [["a", "SENSOR_1"], ["b", "SENSOR_2"], ["c", "SENSOR_3"]];
+    },
     
-    getDropdownBoars: function(){
+    getBoardTuples: function(boardId){
+        if (boardId == "x_1"){
+            return [["a", "SENSOR_1"], ["b", "SENSOR_2"], ["c", "SENSOR_3"]];
+        }
+        if (boardId == "x_2"){
+            return [["1", "SENSOR_1"], ["2", "SENSOR_2"], ["3", "SENSOR_3"]];
+        }
+    },
+    
+    getDropdownBoards: function(){
+        var that = this;
+        
         // Adiciona dinamicamente as placas
         return new Blockly.FieldDropdown(this.getSystemBoards(), function (board_id) {
-            var newItems1 = [["a", "SENSOR_1"], ["b", "SENSOR_2"], ["c", "SENSOR_3"]]
-            var newItems2 = [["001", "SENSOR_1"], ["002", "SENSOR_2"], ["003", "SENSOR_3"]]
-            var newItems;
+            var tuples = that.getBoardTuples(board_id);
             
-            if (board_id == "x_1"){
-                newItems = newItems1;
-            }else{
-                newItems = newItems2;                
-            }
+            Blockly.Format.changeFieldDropdownItems(this, "sensor_id", tuples);
             
-            Blockly.Format.changeFieldDropdownItems(this, "sensor_id", newItems);
         });
     }
     

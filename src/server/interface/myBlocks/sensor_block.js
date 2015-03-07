@@ -1,6 +1,6 @@
 // Código https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#avvg6p
 Blockly.Blocks['sensor_block'] = {
-    mutationToDom: function () {
+    /*mutationToDom: function () {
         var container = document.createElement('mutation');
         var divisorInput = (this.getFieldValue('sensor_id') == 'DIVISIBLE_BY');
         container.setAttribute('divisor_input', divisorInput);
@@ -15,7 +15,7 @@ Blockly.Blocks['sensor_block'] = {
      * @param {boolean} divisorInput True if this block has a divisor input.
      * @private
      * @this Blockly.Block
-     */
+     *
     updateShape_: function (divisorInput) {
         return;
         this.removeInput('DIVISOR');
@@ -33,16 +33,16 @@ Blockly.Blocks['sensor_block'] = {
         } else if (inputExists) {
             this.removeInput('DIVISOR');
         }
-    },
+    },*/
     init: function () {
         this.setColour(240);
         var input = this.appendDummyInput();
         input.appendField("Quando");
-        input.appendField(Blockly.SystemBoards.getDropdownBoars(), 'board_id');
+        input.appendField(Blockly.SystemBoards.getDropdownBoards(), 'board_id');
 
         // Adiciona sensores da primeira placa (selecionada por padrão)
         input.appendField(" .")
-                .appendField(new Blockly.FieldDropdown([["Sensor 1", "SENSOR_1"], ["Sensor 2", "SENSOR_2"], ["Sensor 3", "SENSOR_3"]]), "sensor_id")
+                .appendField(new Blockly.FieldDropdown(Blockly.SystemBoards.getFirstBoardTuples()), "sensor_id")
                 .appendField(".")
                 .appendField("Receber algo");
 
