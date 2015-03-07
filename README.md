@@ -27,3 +27,19 @@ Enfim, rode:
 ```sh
 $ sudo nodejs test/UDPClient/udpclientbroadcast.js
 ```
+
+### Adicionar repositório externo Closure Library
+Esse projeto usa a Closure Library do Google, através do git submodule. Estando a raiz do projeto acesse:
+```sh
+$ cd src/server/
+```
+
+Então, baixe a biblioteca:
+```sh
+$ git clone https://github.com/chaconinc/MainProject
+```
+
+Finalmente, basta atualizar o projeto:
+```sh
+$ git submodule update
+```

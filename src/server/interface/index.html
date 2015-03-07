@@ -1,18 +1,40 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <script src="blockly_compressed.js"></script>
-        <script src="blocks_compressed.js"></script>
-        <script src="javascript_compressed.js"></script>
-        <script src="generators/JavaScript/relay_board.js"></script>
-        <script src="generators/JavaScript/sensor_block.js"></script>
-        <script src="generators/JavaScript/sensor_board.js"></script>
-        <script src="block/sensor_block.js"></script>
-        <script src="block/relay_board.js"></script>
-        <script src="block/sensor_board.js"></script>
+        <script src="blockly_uncompressed.js"></script>
+        <script src="blocks/logic.js"></script>
+        <script src="blocks/loops.js"></script>
+        <script src="blocks/math.js"></script>
+        <script src="blocks/text.js"></script>
+        <script src="blocks/lists.js"></script>
+        <script src="blocks/colour.js"></script>
+        <script src="blocks/variables.js"></script>
+        <script src="blocks/procedures.js"></script>
+        
+        <script src="generators/javascript.js"></script>
+        <script src="generators/javascript/logic.js"></script>
+        <script src="generators/javascript/loops.js"></script>
+        <script src="generators/javascript/math.js"></script>
+        <script src="generators/javascript/text.js"></script>
+        <script src="generators/javascript/lists.js"></script>
+        <script src="generators/javascript/colour.js"></script>
+        <script src="generators/javascript/variables.js"></script>
+        <script src="generators/javascript/procedures.js"></script>
+        
+        <script src="myGenerators/JavaScript/relay_board.js"></script>
+        <script src="myGenerators/JavaScript/sensor_block.js"></script>
+        <script src="myGenerators/JavaScript/sensor_board.js"></script>
+        
+        <script src="myBlocks/sensor_block.js"></script>
+        <script src="myBlocks/relay_board.js"></script>
+        <script src="myBlocks/sensor_board.js"></script>
+        
+        <script src="system/blockly_format.js"></script>
+        <script src="system/system_boards.js"></script>
         <script src="pt-br.js"></script>
     </head>
     <body>
+
         <div id="blocklyDiv" style="height: 580px; width: 1000px;"></div>
     <xml id="toolbox" style="display: none">
         <category name="Core">
@@ -37,6 +59,10 @@
                 <block type="math_number"></block>
                 <block type="math_arithmetic"></block>
                 <block type="math_single"></block>
+                <block type="math_number_property">
+                    <b><mutation divisor_input="true"></mutation></b>
+                    <field name="PROPERTY">DIVISIBLE_BY</field>
+                </block>
             </category>
             <category name="Text">
                 <block type="text"></block>
@@ -50,7 +76,10 @@
                 <block type="relay_board"></block>
             </category>
             <category name="Sensores">
-                <block type="sensor_block"></block>
+                <block type="sensor_block">
+                    <b><mutation divisor_input="true"></mutation></b>
+                    <field name="sensor_id">DIVISIBLE_BY</field>
+                </block>
                 <block type="sensor_board"></block>
             </category>
         </category>
