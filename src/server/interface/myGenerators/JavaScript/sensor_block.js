@@ -4,7 +4,7 @@ Blockly.JavaScript['sensor_block'] = function (block) {
     
     var internalCode = Blockly.JavaScript.statementToCode(block, 'DO_SOMETHING');
     
-    var code = "$.subscribe('handleBoard/" + boardId + "/" + sensorId + "', function(){\n"
+    var code = "subscribe('handleBoard/" + boardId + "/" + sensorId + "', function(){\n"
         + internalCode + "\})";
     
     //var code = 'callX = function(boardId, sensorId){\n' + test + '}\("' + boardId + '", "' + sensorId + '");\n';

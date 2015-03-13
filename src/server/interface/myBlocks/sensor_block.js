@@ -1,4 +1,4 @@
-// CÛdigo https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#avvg6p
+// C√≥digo https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#avvg6p
 Blockly.Blocks['sensor_block'] = {
     /*mutationToDom: function () {
         var container = document.createElement('mutation');
@@ -33,6 +33,7 @@ Blockly.Blocks['sensor_block'] = {
         } else if (inputExists) {
             this.removeInput('DIVISOR');
         }
+    
     },*/
     init: function () {
         this.setColour(240);
@@ -40,14 +41,14 @@ Blockly.Blocks['sensor_block'] = {
         input.appendField("Quando");
         input.appendField(Blockly.SystemBoards.getDropdownBoards(), 'board_id');
 
-        // Adiciona sensores da primeira placa (selecionada por padr„o)
-        input.appendField(" .")
+        // Adiciona sensores da primeira placa (selecionada por padr√£o)
+        input.appendField(" . no sensor")
                 .appendField(new Blockly.FieldDropdown(Blockly.SystemBoards.getFirstBoardTuples()), "sensor_id")
                 .appendField(".")
                 .appendField("Receber algo");
 
         this.appendStatementInput("DO_SOMETHING")
-                .appendField("FaÁa");
+                .appendField("Fa√ßa");
         this.setTooltip('');
     }
 };

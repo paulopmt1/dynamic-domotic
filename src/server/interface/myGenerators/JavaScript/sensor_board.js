@@ -1,7 +1,10 @@
 Blockly.JavaScript['sensor_board'] = function (block) {
 
-    var code = 'readSensor("' + block.getFieldValue('board_id') + '","' + block.getFieldValue('NAME')+')';
+    var internalCode = Blockly.JavaScript.statementToCode(block, 'DO_SOMETHING');
     
-    return [code, Blockly.JavaScript.ORDER_ADDITION];
+    var code = "readSensor('" + block.getFieldValue('board_id') + "','" + block.getFieldValue('sensor_id') + "'" + ", function(value){\n"
+        + internalCode + '})\n';
 
+    return code;
+    //return [code, Blockly.JavaScript.ORDER_ADDITION];
 };

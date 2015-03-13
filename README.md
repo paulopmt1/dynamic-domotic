@@ -3,7 +3,7 @@
 Projeto de automação residencial dinâmica e flexível, independente de tecnologia embarcada, prevendo programação gráfica por um usuário comum.
 
 
-![alt tag](https://cloud.githubusercontent.com/assets/1044309/6205813/5df7ae76-b562-11e4-979b-9aa9bea7cd8a.png)
+![alt tag](https://cloud.githubusercontent.com/assets/1044309/6632286/92bd7528-c912-11e4-8a84-0234d9c91983.png)
 
 
 ### Instalação Dependências
@@ -28,13 +28,13 @@ Enfim, rode:
 $ sudo nodejs test/UDPClient/udpclientbroadcast.js
 ```
 
-### Adicionar reposit�rio externo Closure Library
-Esse projeto usa a Closure Library do Google, atrav�s do git submodule. Estando a raiz do projeto acesse:
+### Adicionar repositório externo Closure Library
+Esse projeto usa a Closure Library do Google, através do git submodule. Estando a raiz do projeto acesse:
 ```sh
 $ cd src/server/
 ```
 
-Ent�o, baixe a biblioteca:
+Então, baixe a biblioteca:
 ```sh
 $ git clone https://github.com/chaconinc/MainProject
 ```
