@@ -31,6 +31,14 @@
         
         <script src="system/blockly_format.js"></script>
         <script src="system/system_boards.js"></script>
+        <script src="system/storage.js"></script>
+        <script type="text/javascript">
+            BlocklyStorage.backupOnUnload();
+            setTimeout(function(){
+                BlocklyStorage.restoreBlocks();
+                
+            },100)
+        </script>
         <script src="pt-br.js"></script>
     </head>
     <body>
