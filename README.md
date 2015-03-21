@@ -36,10 +36,11 @@ $ cd src/server/
 
 Então, baixe a biblioteca:
 ```sh
-$ git clone https://github.com/chaconinc/MainProject
+$ git clone https://github.com/google/closure-library
 ```
 
 Finalmente, basta atualizar o projeto:
 ```sh
+$ cd closure-library
 $ git submodule update
 ```
