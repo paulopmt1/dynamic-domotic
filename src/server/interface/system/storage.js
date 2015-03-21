@@ -8,11 +8,15 @@ var BlocklyStorage = {};
 BlocklyStorage.backupBlocks_ = function () {
     if ('localStorage' in window) {
         var xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
-        // Gets the current URL, not including the hash.
-        var url = window.location.href.split('#')[0];
-        window.localStorage.setItem(url, Blockly.Xml.domToText(xml));
+        BlocklyStorage.backupBlocksOnLocalStorage(Blockly.Xml.domToText(xml));
     }
 };
+
+BlocklyStorage.backupBlocksOnLocalStorage = function(xmlText){
+    // Gets the current URL, not including the hash.
+    var url = window.location.href.split('#')[0];
+    window.localStorage.setItem(url, xmlText);
+}
 
 /**
  * Bind the localStorage backup function to the unload event.

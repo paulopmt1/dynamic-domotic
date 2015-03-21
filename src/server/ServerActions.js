@@ -1,5 +1,5 @@
 /**
- * Processa todas as ações do servidor
+ * Processa todas as aÃ§Ãµes do servidor
  */
 
 var assert = require('assert');
@@ -18,7 +18,7 @@ module.exports = {
         var that = this;
 
         if (!hostId) {
-            throw new Error('Não foi recebido o hostId neste request. Abortado');
+            throw new Error('NÃ£o foi recebido o hostId neste request. Abortado');
         }
 
         Host.findHostById(hostId, function (data) {
@@ -51,8 +51,8 @@ module.exports = {
     },
     
     /**
-     * Envia mensagem para cliente informando que ele está registrado
-     * e por consequência permite ao cliente conhecer o IP do servidor
+     * Envia mensagem para cliente informando que ele estÃ¡ registrado
+     * e por consequÃªncia permite ao cliente conhecer o IP do servidor
      * @param {type} clientIP
      * @returns {undefined}
      */
@@ -64,7 +64,7 @@ module.exports = {
             port: clientPort
         };
 
-        console.log('enviando confirmação para cliente: ' + clientIP);
+        console.log('enviando confirmaÃ§Ã£o para cliente: ' + clientIP);
 
         callback = function (response) {
             var str = '';
@@ -76,12 +76,12 @@ module.exports = {
 
             //the whole response has been recieved, so we just print it out here
             response.on('end', function () {
-                console.log('confirmação enviada, dados recebidos: ');
+                console.log('confirmaÃ§Ã£o enviada, dados recebidos: ');
                 console.log(str);
             });
         }
 
-        // Envia após 3 segundos a confirmação de registro 
+        // Envia apÃ³s 3 segundos a confirmaÃ§Ã£o de registro 
         // (por hora para permitir o cliente chavear seu comportamento
         setTimeout(function(){
             console.log('enviando agora');

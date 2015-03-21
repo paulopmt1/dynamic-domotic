@@ -1,3 +1,11 @@
+<?php
+
+header('Access-Control-Allow-Origin: *');  
+header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Content-Range, Content-Disposition, Content-Description');
+
+?>
+
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -10,7 +18,7 @@
         <script src="blocks/colour.js"></script>
         <script src="blocks/variables.js"></script>
         <script src="blocks/procedures.js"></script>
-        
+
         <script src="generators/javascript.js"></script>
         <script src="generators/javascript/logic.js"></script>
         <script src="generators/javascript/loops.js"></script>
@@ -20,29 +28,28 @@
         <script src="generators/javascript/colour.js"></script>
         <script src="generators/javascript/variables.js"></script>
         <script src="generators/javascript/procedures.js"></script>
-        
+
         <script src="myGenerators/JavaScript/relay_board.js"></script>
         <script src="myGenerators/JavaScript/sensor_block.js"></script>
         <script src="myGenerators/JavaScript/sensor_board.js"></script>
-        
+
         <script src="myBlocks/sensor_block.js"></script>
         <script src="myBlocks/relay_board.js"></script>
         <script src="myBlocks/sensor_board.js"></script>
-        
+
+        <script src="system/jquery-2.0.js"></script>
         <script src="system/blockly_format.js"></script>
         <script src="system/system_boards.js"></script>
         <script src="system/storage.js"></script>
-        <script type="text/javascript">
-            BlocklyStorage.backupOnUnload();
-            setTimeout(function(){
-                BlocklyStorage.restoreBlocks();
-                
-            },100)
-        </script>
+        <script src="system/onload.js"></script>
         <script src="pt-br.js"></script>
     </head>
     <body>
-
+        <div id="control">
+            <button class="saveOnDb">Salvar alterações no banco</button>
+            <button class="importFromDb">Importar configuração do banco</button>
+            
+        </div>
         <div id="blocklyDiv" style="height: 580px; width: 1000px;"></div>
     <xml id="toolbox" style="display: none">
         <category name="Core">

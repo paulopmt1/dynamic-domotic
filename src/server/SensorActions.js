@@ -1,5 +1,5 @@
 /**
- * Processa todas as aÁıes do servidor
+ * Processa todas as a√ß√µes do servidor
  */
 
 var assert = require('assert');
@@ -31,7 +31,7 @@ module.exports = {
 };
 
 /**
- * Verifica se o sensor È v·lido
+ * Verifica se o sensor √© v√°lido
  * @param {type} sensorData
  * @returns {undefined}
  */
@@ -40,7 +40,7 @@ function validateSensor(sensorData){
     
     for (var item in sensorPattern){
         if (!sensorData[sensorPattern[item]]){
-            console.log("Sensor possui par‚metros incorretos. Deve seguir o padrao:");
+            console.log("Sensor possui par√¢metros incorretos. Deve seguir o padrao:");
             console.log(sensorPattern);
             console.log("Dados do sensor:");
             console.log(sensorData);

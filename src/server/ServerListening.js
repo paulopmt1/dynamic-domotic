@@ -1,5 +1,5 @@
 var serverPort = 1010;
-var serverIP = "192.168.5.107";
+var serverIP = "192.168.5.109";
 var http = require('http');
 
 var formidable = require('formidable'),
@@ -7,6 +7,7 @@ var formidable = require('formidable'),
     
 ServerActions = require('./ServerActions');
 SensorActions = require('./SensorActions');
+ServerWorkpace = require('./ServerWorkpace');
 
 
 // ###############          TCP         ###################
@@ -16,11 +17,20 @@ http.createServer(function (req, res) {
             SensorActions.setSensorData(req, res);
             break;
 
+        case '/saveWorkspace':
+            ServerWorkpace.saveWorkspace(req, res);
+            break;
+
+        case '/importFromDb':
+            ServerWorkpace.importFromDb(req, res);
+            break;
+
         default:
             res.writeHead(200, {
                 'Content-Type': 'text/plain'
             });
-            res.end('COMANDO INVALIDO\n');
+            res.end('COMANDO INVÁLIDO\n');
+            console.log('Comando recebido não registrado: ' + req.url);
     }
 
 
