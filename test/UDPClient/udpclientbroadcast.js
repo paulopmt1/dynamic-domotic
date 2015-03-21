@@ -6,8 +6,8 @@ var formidable = require('formidable'),
 var querystring = require('querystring');
 
 
-var broadcastAddress = "192.168.5.255";
-var clientIP = "192.168.5.109";
+var broadcastAddress = "localhost";//"192.168.5.255";
+var clientIP = "localhost";//"192.168.5.109";
 var serverPort = 1010;
 var serverIP = undefined;
 var isRegistered = false;
@@ -81,7 +81,7 @@ function setRelayStatus(req, res){
 
     form.parse(req, function(err, fields, files) {
       res.writeHead(200, {'content-type': 'text/plain'});
-      console.log("Vou acionar o rele " + fields.relay + " com status " + fields.status)
+      console.log("Vou acionar o rele " + fields.relay + " com status " + fields.status);
       //res.end(util.inspect({fields: fields, files: files}));
       res.end("OK");
     });
