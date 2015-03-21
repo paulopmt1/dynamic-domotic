@@ -3,22 +3,22 @@ Blockly.SystemBoards = {
     getSystemBoards: function() {
         var options = [];
 
-        options.push(["Placa x1", "x_1"]);
-        options.push(["Placa x2", "x_2"]);
+        options.push(["Placa 2A44F", "2A44F"]);
+        options.push(["Placa 31AAC", "31AAC"]);
 
         return options;
     },
     
     getFirstBoardTuples: function(){
-        return [["a", "SENSOR_1"], ["b", "SENSOR_2"], ["c", "SENSOR_3"]];
+        return [["1", "SENSOR_1"], ["2", "SENSOR_2"], ["3", "SENSOR_3"]];
     },
     
     getBoardTuples: function(boardId){
-        if (boardId == "x_1"){
-            return [["a", "SENSOR_1"], ["b", "SENSOR_2"], ["c", "SENSOR_3"]];
-        }
-        if (boardId == "x_2"){
+        if (boardId == "2A44F"){
             return [["1", "SENSOR_1"], ["2", "SENSOR_2"], ["3", "SENSOR_3"]];
+        }
+        if (boardId == "31AAC"){
+            return [["1", "SENSOR_1"], ["2", "SENSOR_2"]];
         }
     },
     

@@ -33,7 +33,6 @@ module.exports = {
                         }
                     });
                 } else {
-                    console.log(workspaceObject)
                     Workspace.updateWorkspace(workspaceObject, function (status) {
                         if (status) {
                             console.log('Dados do novo workspace atualizados com sucesso');

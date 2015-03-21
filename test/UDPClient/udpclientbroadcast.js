@@ -7,17 +7,18 @@ var querystring = require('querystring');
 
 
 var broadcastAddress = "192.168.5.255";
-var clientIP = "192.168.5.107";
+var clientIP = "192.168.5.109";
 var serverPort = 1010;
 var serverIP = undefined;
 var isRegistered = false;
 
-// Cria um host com 4 relÈs
+// Cria um host com 5 rel√©s e 3 sensores
 var hostData = {
     hostId: '2A44F',
-    type: 'IN', // IN, OUT, INOUT
+    type: 'INOUT', // IN, OUT, INOUT
     capabilities: {
-        relay: 5
+        relay: 5,
+        sensor: 3
     }
 };
 
@@ -38,7 +39,7 @@ function sendBroadCastMessage(callback) {
 
 /**
  * Ouve retorno do servidor confirmando registro,
- * e ent„o salva o ip do servidor
+ * e ent√£o salva o ip do servidor
  */
 function listenForRegisterStatus() {
     http.createServer(function (req, res) {
@@ -56,7 +57,7 @@ function listenForRegisterStatus() {
                 res.writeHead(200, {
                     'Content-Type': 'text/plain'
                 });
-                res.end('COMANDO INVALIDO\n');
+                res.end('COMANDO INV√ÅLIDO\n');
         }
         
         
@@ -66,15 +67,15 @@ function listenForRegisterStatus() {
 
 function setRelayStatus(req, res){
     if (req.method.toLowerCase() != 'post'){
-        console.log('Tipo de request recebido inv·lido: ' + req.method);
+        console.log('Tipo de request recebido inv√°lido: ' + req.method);
         res.writeHead(500, {
             'Content-Type': 'text/plain'
         });
-        res.end('METODO INVALIDO\n');
+        res.end('METODO INV√ÅLIDO\n');
         return;
     }
     
-    // Recebe dados do formul·rio
+    // Recebe dados do formul√°rio
     // https://github.com/felixge/node-formidable
     var form = new formidable.IncomingForm();
 
@@ -93,7 +94,7 @@ function confirmRegister(req, res){
     });
     res.end('OK\n');
 
-    console.log('ConfirmaÁ„o recebida');
+    console.log('Confirma√ß√£o recebida');
 }
 
 
@@ -103,9 +104,9 @@ function registerServerIP(ip){
     isRegistered = true;
 }
 
-// ApÛs enviar mensagem de broadcast, ouve por conex„o do servidor para confirmaÁ„o
+// Ap√≥s enviar mensagem de broadcast, ouve por conex√£o do servidor para confirma√ß√£o
 sendBroadCastMessage(function(){
-    // Aguarda confirmaÁ„o do servidor
+    // Aguarda confirma√ß√£o do servidor
     listenForRegisterStatus();
 });
 
@@ -117,8 +118,9 @@ sendBroadCastMessage(function(){
 setInterval(function(){
     if (isRegistered){
         var data = {
+            board_id: hostData.hostId,
             client_id: hostData.hostId,
-            sensor_id: 'S01',
+            sensor_id: 'SENSOR_3',
             sensor_type: 'DIGITAL',
             sensor_value: 1
         };
