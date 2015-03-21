@@ -1,5 +1,7 @@
 
 var vm = require('vm');
+ServerWorkpace = require('./ServerWorkpace');
+
 
 var events = (function(){
   var topics = {};
@@ -39,7 +41,7 @@ function subscribe(handler, callback){
 }
 
 var assert = require('assert');
-DB = require('./MongoDB'); 
+DB = require('./db/MongoDB'); 
 
 function readSensor(boardId, sensorId, callback){
     console.log("lendo sensor " + sensorId + " da placa " + boardId);
@@ -64,6 +66,15 @@ function setRelay(boardId, relayId, relayStatus){
 }
 
 
+ServerWorkpace.getJavascriptCode(function(data){
+    console.log(data);
+    
+    var vmResult = eval(data);
+
+    // Gera evento para teste
+    //events.publish('handleBoard/x_1/SENSOR_2');
+});
+/*
 var code = "var value;\
 subscribe('handleBoard/x_1/SENSOR_2', function(){\
   readSensor('x_1','SENSOR_2', function(value){\
@@ -73,10 +84,6 @@ subscribe('handleBoard/x_1/SENSOR_2', function(){\
     setRelay('23AD','RELAY_1',(!value));\
   })\
 })";
-
-var vmResult = eval(code);
-
-// Gera evento para teste
-events.publish('handleBoard/x_1/SENSOR_2');
+*/
 
 

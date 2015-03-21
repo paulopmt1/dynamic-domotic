@@ -34,7 +34,8 @@ module.exports = {
             collection.update({workspaceId: workspaceObject.workspaceId},
             {
                 $set: {
-                    xml: workspaceObject.xml
+                    xml:        workspaceObject.xml,
+                    javascript: workspaceObject.javascript
                 }
             }, function (err, result) {
                 assert.equal(err, null);

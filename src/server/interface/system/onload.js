@@ -13,7 +13,8 @@ setTimeout(function () {
         var xml = Blockly.Xml.workspaceToDom(Blockly.getMainWorkspace());
         
         $.post(server + 'saveWorkspace', {
-            xml: Blockly.Xml.domToText(xml)
+            xml:            Blockly.Xml.domToText(xml),
+            javascript:     Blockly.JavaScript.workspaceToCode()
         }, function(data){
             if (!data.status){
                 alert('Falha ao salvar workpace');

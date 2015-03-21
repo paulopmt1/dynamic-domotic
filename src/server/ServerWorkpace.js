@@ -20,8 +20,9 @@ module.exports = {
             }
             
             var workspaceObject = {
-                workspaceId: '001',
-                xml: fields['xml']
+                workspaceId:    '001',
+                xml:            fields['xml'],
+                javascript:     fields['javascript']
             };
             
             Workspace.findWorkpace(workspaceObject.workspaceId, function (data) {
@@ -32,6 +33,7 @@ module.exports = {
                         }
                     });
                 } else {
+                    console.log(workspaceObject)
                     Workspace.updateWorkspace(workspaceObject, function (status) {
                         if (status) {
                             console.log('Dados do novo workspace atualizados com sucesso');
@@ -74,6 +76,21 @@ module.exports = {
                     'Content-Type': 'application/json'
                 });
                 res.end(JSON.stringify({status: true, xml: data.xml}));
+            }
+        });
+    },
+    
+    
+    getJavascriptCode: function(callback){
+        var workspaceObject = {
+            workspaceId: '001'
+        };
+
+        Workspace.findWorkpace(workspaceObject.workspaceId, function (data) {
+            if (data) {
+                callback(data.javascript);
+            } else {
+                callback(false);
             }
         });
     }
