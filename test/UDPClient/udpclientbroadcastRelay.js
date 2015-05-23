@@ -30,7 +30,6 @@ var message = new Buffer(JSON.stringify(hostData));
 // Após enviar mensagem de broadcast, ouve por conexão do servidor para confirmação
 sendBroadCastMessage(
     // Aguarda confirmação do servidor
-    listenForRegisterStatus
 );
 
 function sendBroadCastMessage(callback) {
@@ -45,14 +44,18 @@ function sendBroadCastMessage(callback) {
             client.setBroadcast(true);
             client.send(message, 0, message.length, serverPort, broadcastAddress, function (err, bytes) {
 
-                //stop retrying to connect
                 assert.equal(null, err);
+                if(callback){
+                    callback();
+                }
                 client.close();
-                callback(interval);
             });
         });
 
-    },200);
+
+    },5000);
+
+    listenForRegisterStatus(interval);
 
 }
 
