@@ -7,7 +7,7 @@ var http = require('http');
 var formidable = require('formidable')
 
 var CLIENT_REGISTER_TIMEOUT = 1000;
-var clientPort = 8080;
+var clientPort = 8081;
 Host = require('./db/Host');
 
 module.exports = {
@@ -18,8 +18,10 @@ module.exports = {
      */
     proccessHostRegisterRequest: function (remoteAddress, hostObject) {
         var hostId = hostObject.hostId;
+        
         // Concatena IP do host
         hostObject.hostIP = remoteAddress;
+        
         var that = this;
 
         if (!hostId) {
@@ -46,7 +48,7 @@ module.exports = {
                         console.log('novos dados: ');
                         console.log(data);
 
-                        that.sendClientConfirmMessage(remoteAddress);
+                        that.sendClientConfirmMessage(remoteAddress, hostObject.hostPort);
                     });
                 });
             }
@@ -61,7 +63,7 @@ module.exports = {
      * @param {type} clientIP
      * @returns {undefined}
      */
-    sendClientConfirmMessage: function (clientIP) {
+    sendClientConfirmMessage: function (clientIP, clientPort) {
         var options = {
             host: clientIP,
             path: '/registerOK',

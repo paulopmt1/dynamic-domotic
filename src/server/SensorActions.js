@@ -5,12 +5,13 @@
 var assert = require('assert');
 var http = require('http');
 var formidable = require('formidable')
+var querystring = require('querystring');
 
-var clientPort = 8080;
 Sensor = require('./db/Sensor');
 ServerWorkpace = require('./ServerWorkpace');
 Sensor = require('./db/Sensor');
 PublishSubscribe = require('./PublishSubscribe');
+Host = require('./db/Host');
 
 module.exports = {
     setSensorData: function(req, res){
@@ -105,12 +106,53 @@ function readSensor(boardId, sensorId, callback){
 }
 
 /**
- * Define status de um relé no sistema
- * @param {type} boardId
+ * Define status de um relé no sistema em uma placa remota
+ * @param {type} hostId
  * @param {type} relayId
  * @param {type} relayStatus
  */
-function setRelay(boardId, relayId, relayStatus){
-    console.log("Obtendo placa " + boardId);
-    console.log("Vou definir o status do rele " + relayId + " para " + relayStatus);
+function setRelay(hostId, relayId, relayStatus){
+    console.log("Obtendo placa " + hostId);
+    
+    Host.findHostById(hostId, function (data) {
+        sendPostRelayToClient(data.hostIP, data.hostPort, relayId, relayStatus);
+    });
+}
+
+
+/**
+ * Envia informações para a placa cliente com comando setRelayStatus
+ * @param {type} clientIP
+ * @param {type} clientPort
+ * @param {type} relayId
+ * @param {type} relayStatus
+ * @returns {undefined}
+ */
+function sendPostRelayToClient(clientIP, clientPort, relayId, relayStatus){
+    var data = {
+        relayId: relayId,
+        relayStatus: relayStatus
+    };
+    
+    var options = {
+        host: clientIP,
+        path: '/setRelayStatus',
+        method: 'POST',
+        port: clientPort,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': Buffer.byteLength(querystring.stringify(data))
+        }
+    };
+
+    console.log('executando /setRelayStatus no o cliente ' + clientIP + ' na porta ' + clientPort + ' com os dados:');
+    console.log(data);
+
+    var post = http.request(options, false);
+    post.write(querystring.stringify(data));
+    post.on('error', function(error) {
+        console.log('Falha ao se comunicar com cliente ' + clientIP + ': ' + error);
+    });
+    
+    post.end();
 }
