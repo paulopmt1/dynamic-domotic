@@ -4,15 +4,15 @@ var http = require('http');
 var formidable = require('formidable'),
     util = require('util');
 var querystring = require('querystring');
-
+var clientPort = 8082;
 
 var broadcastAddress = "192.168.5.255";
-var clientIP = "192.168.5.108";
+//var broadcastAddress = "localhost";
+var clientIP = "192.168.5.108";//"192.168.5.109";
+//var clientIP = "localhost";
 var serverPort = 1010;
 var serverIP = undefined;
 var isRegistered = false;
-
-var clientPort = 8082;
 
 // Cria um host com 5 relés e 3 sensores
 var hostData = {
@@ -28,22 +28,35 @@ var hostData = {
 var message = new Buffer(JSON.stringify(hostData));
 
 // Após enviar mensagem de broadcast, ouve por conexão do servidor para confirmação
-sendBroadCastMessage(function(){
+sendBroadCastMessage(
     // Aguarda confirmação do servidor
-    listenForRegisterStatus();
-});
+);
 
 function sendBroadCastMessage(callback) {
-    var client = dgram.createSocket("udp4");
-    client.bind();
-    client.on("listening", function () {
-        client.setBroadcast(true);
-        client.send(message, 0, message.length, serverPort, broadcastAddress, function (err, bytes) {
-            assert.equal(null, err);
-            client.close();
-            callback();
+
+    var interval = setInterval(function () {
+
+        console.log("Trying to locate server");
+
+        var client = dgram.createSocket("udp4");
+        client.bind();
+        client.on("listening", function () {
+            client.setBroadcast(true);
+            client.send(message, 0, message.length, serverPort, broadcastAddress, function (err, bytes) {
+
+                assert.equal(null, err);
+                if(callback){
+                    callback();
+                }
+                client.close();
+            });
         });
-    });
+
+
+    },5000);
+
+    listenForRegisterStatus(interval);
+
 }
 
 /**
@@ -51,15 +64,17 @@ function sendBroadCastMessage(callback) {
  * Ouve retorno do servidor confirmando registro,
  * e então salva o ip do servidor
  */
-function listenForRegisterStatus() {
+function listenForRegisterStatus(interval) {
     http.createServer(function (req, res) {
         registerServerIP(req.connection.remoteAddress);
         
         switch (req.url){
             case '/registerOK':
+                clearInterval(interval);
                 confirmRegister(req, res);
                 break;
             case '/setRelayStatus':
+                clearInterval(interval);
                 setRelayStatus(req, res);
                 break;
                 
@@ -109,7 +124,7 @@ function confirmRegister(req, res){
 
 
 function registerServerIP(ip){
-    console.log('IP do servidor: ' + ip)
+    console.log('IP do servidor: ' + ip);
     serverIP = ip;
     isRegistered = true;
 }
