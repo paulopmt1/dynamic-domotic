@@ -28,14 +28,14 @@ var hostData = {
 var message = new Buffer(JSON.stringify(hostData));
 
 // Após enviar mensagem de broadcast, ouve por conexão do servidor para confirmação
-sendBroadCastMessage(function(){
+sendBroadCastMessage(
     // Aguarda confirmação do servidor
-    listenForRegisterStatus();
-});
+    listenForRegisterStatus
+);
 
 function sendBroadCastMessage(callback) {
 
-    /*var interval = setInterval(function () {
+    var interval = setInterval(function () {
 
         console.log("Trying to locate server");
 
@@ -46,17 +46,15 @@ function sendBroadCastMessage(callback) {
             client.send(message, 0, message.length, serverPort, broadcastAddress, function (err, bytes) {
 
                 //stop retrying to connect
-                clearInterval(interval);
-
                 assert.equal(null, err);
                 client.close();
-                callback();
+                callback(interval);
             });
         });
 
-    },200);*/
+    },200);
 
-    var client = dgram.createSocket("udp4");
+    /*var client = dgram.createSocket("udp4");
     client.bind();
     client.on("listening", function () {
         client.setBroadcast(true);
@@ -65,7 +63,7 @@ function sendBroadCastMessage(callback) {
             client.close();
             callback();
         });
-    });
+    });*/
 
 }
 
@@ -74,15 +72,17 @@ function sendBroadCastMessage(callback) {
  * Ouve retorno do servidor confirmando registro,
  * e então salva o ip do servidor
  */
-function listenForRegisterStatus() {
+function listenForRegisterStatus(interval) {
     http.createServer(function (req, res) {
         registerServerIP(req.connection.remoteAddress);
         
         switch (req.url){
             case '/registerOK':
+                clearInterval(interval);
                 confirmRegister(req, res);
                 break;
             case '/setRelayStatus':
+                clearInterval(interval);
                 setRelayStatus(req, res);
                 break;
                 
