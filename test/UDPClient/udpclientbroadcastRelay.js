@@ -6,17 +6,20 @@ var formidable = require('formidable'),
 var querystring = require('querystring');
 
 
-var broadcastAddress = "localhost";//"192.168.5.255";
-var clientIP = "localhost";//"192.168.5.109";
+var broadcastAddress = "192.168.5.255";
+var clientIP = "192.168.5.108";
 var serverPort = 1010;
 var serverIP = undefined;
 var isRegistered = false;
+
+var clientPort = 8082;
 
 // Cria um host com 5 relés e 3 sensores
 var hostData = {
     hostId: '2A44F',
     type: 'INOUT', // IN, OUT, INOUT
     capabilities: {
+        hostPort:clientPort,
         relay: 5,
         sensor: 3
     }
@@ -68,7 +71,7 @@ function listenForRegisterStatus() {
         }
         
         
-    }).listen(8080, clientIP);
+    }).listen(clientPort, clientIP);
 }
 
 
