@@ -54,17 +54,6 @@ function sendBroadCastMessage(callback) {
 
     },200);
 
-    /*var client = dgram.createSocket("udp4");
-    client.bind();
-    client.on("listening", function () {
-        client.setBroadcast(true);
-        client.send(message, 0, message.length, serverPort, broadcastAddress, function (err, bytes) {
-            assert.equal(null, err);
-            client.close();
-            callback();
-        });
-    });*/
-
 }
 
 /**
