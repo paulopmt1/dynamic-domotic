@@ -18,8 +18,8 @@ var clientPort = 8082;
 var hostData = {
     hostId: '2A44F',
     type: 'INOUT', // IN, OUT, INOUT
+    hostPort:clientPort,
     capabilities: {
-        hostPort:clientPort,
         relay: 5,
         sensor: 3
     }
@@ -91,7 +91,7 @@ function setRelayStatus(req, res){
 
     form.parse(req, function(err, fields, files) {
       res.writeHead(200, {'content-type': 'text/plain'});
-      console.log("Vou acionar o rele " + fields.relay + " com status " + fields.status);
+      console.log("Vou acionar o rele " + fields.relayId + " com status " + fields.relayStatus);
       //res.end(util.inspect({fields: fields, files: files}));
       res.end("OK");
     });
