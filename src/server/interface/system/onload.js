@@ -1,6 +1,6 @@
 BlocklyStorage.backupOnUnload();
 
-var server = 'http://192.168.5.109:1010/';
+var server = 'http://localhost:1010/';
 
 setTimeout(function () {
     BlocklyStorage.restoreBlocks();
@@ -19,6 +19,7 @@ setTimeout(function () {
             if (!data.status){
                 alert('Falha ao salvar workpace');
             }else{
+                alert('Salvo com sucesso!');
                 BlocklyStorage.backupBlocks_();
             }
         });
