@@ -4,10 +4,12 @@ var http = require('http');
 var formidable = require('formidable'),
     util = require('util');
 var querystring = require('querystring');
+var clientPort = 8082;
 
-
-var broadcastAddress = "localhost";//"192.168.5.255";
-var clientIP = "localhost";//"192.168.5.109";
+var broadcastAddress = "192.168.5.255";
+//var broadcastAddress = "localhost";
+var clientIP = "192.168.5.108";//"192.168.5.109";
+//var clientIP = "localhost";
 var serverPort = 1010;
 var serverIP = undefined;
 var isRegistered = false;
@@ -16,6 +18,7 @@ var isRegistered = false;
 var hostData = {
     hostId: '2A44F',
     type: 'INOUT', // IN, OUT, INOUT
+    hostPort:clientPort,
     capabilities: {
         relay: 5,
         sensor: 3
@@ -31,6 +34,28 @@ sendBroadCastMessage(function(){
 });
 
 function sendBroadCastMessage(callback) {
+
+    /*var interval = setInterval(function () {
+
+        console.log("Trying to locate server");
+
+        var client = dgram.createSocket("udp4");
+        client.bind();
+        client.on("listening", function () {
+            client.setBroadcast(true);
+            client.send(message, 0, message.length, serverPort, broadcastAddress, function (err, bytes) {
+
+                //stop retrying to connect
+                clearInterval(interval);
+
+                assert.equal(null, err);
+                client.close();
+                callback();
+            });
+        });
+
+    },200);*/
+
     var client = dgram.createSocket("udp4");
     client.bind();
     client.on("listening", function () {
@@ -41,6 +66,7 @@ function sendBroadCastMessage(callback) {
             callback();
         });
     });
+
 }
 
 /**
@@ -68,7 +94,7 @@ function listenForRegisterStatus() {
         }
         
         
-    }).listen(8080, clientIP);
+    }).listen(clientPort, clientIP);
 }
 
 
@@ -88,7 +114,7 @@ function setRelayStatus(req, res){
 
     form.parse(req, function(err, fields, files) {
       res.writeHead(200, {'content-type': 'text/plain'});
-      console.log("Vou acionar o rele " + fields.relay + " com status " + fields.status);
+      console.log("Vou acionar o rele " + fields.relayId + " com status " + fields.relayStatus);
       //res.end(util.inspect({fields: fields, files: files}));
       res.end("OK");
     });
@@ -106,7 +132,7 @@ function confirmRegister(req, res){
 
 
 function registerServerIP(ip){
-    console.log('IP do servidor: ' + ip)
+    console.log('IP do servidor: ' + ip);
     serverIP = ip;
     isRegistered = true;
 }
