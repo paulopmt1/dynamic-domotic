@@ -4,27 +4,22 @@ var http = require('http');
 var formidable = require('formidable'),
     util = require('util');
 var querystring = require('querystring');
+require("../Configure/Configure.js");
 
-
-var broadcastAddress = "localhost";//"192.168.5.255";
-var clientIP = "localhost";//"192.168.5.109";
-//var broadcastAddress = "192.168.5.255";
-//var clientIP = "192.168.5.109";
-
-var serverPort = 1010;
+var broadcastAddress = Configuration.clientSensorBroadcast;
+var serverPort = Configuration.serverPort;
 var serverIP = undefined;
 var isRegistered = false;
-var clientPort = 8080;
+
+var clientIP = Configuration.clientSensorIp;
+var clientPort = Configuration.clientSensorPort;
 
 // Cria um host com 5 relés e 3 sensores
 var hostData = {
     hostPort: clientPort,
-    hostId: '31AAC',
-    type: 'IN', // IN, OUT, INOUT
-    capabilities: {
-        relay: 5,
-        sensor: 3
-    }
+    hostId: Configuration.clientSensorHostId,
+    type: Configuration.clientSensorType, // IN, OUT, INOUT
+    capabilities: Configuration.clientSensorCapabilities
 };
 
 var message = new Buffer(JSON.stringify(hostData));
