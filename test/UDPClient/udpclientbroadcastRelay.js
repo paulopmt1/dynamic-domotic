@@ -4,7 +4,7 @@ var http = require('http');
 var formidable = require('formidable'),
     util = require('util');
 var querystring = require('querystring');
-require("../Configuration/Configuration.js");
+var Configuration = require("../Configuration/Configuration.js");
 
 var broadcastAddress = Configuration.clientRelayBroadcast;
 var serverPort = Configuration.serverPort;
