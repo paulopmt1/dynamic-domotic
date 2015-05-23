@@ -8,14 +8,19 @@ var querystring = require('querystring');
 
 var broadcastAddress = "localhost";//"192.168.5.255";
 var clientIP = "localhost";//"192.168.5.109";
+//var broadcastAddress = "192.168.5.255";
+//var clientIP = "192.168.5.109";
+
 var serverPort = 1010;
 var serverIP = undefined;
 var isRegistered = false;
+var clientPort = 8080;
 
 // Cria um host com 5 relés e 3 sensores
 var hostData = {
-    hostId: '2A44F',
-    type: 'INOUT', // IN, OUT, INOUT
+    hostPort: clientPort,
+    hostId: '31AAC',
+    type: 'IN', // IN, OUT, INOUT
     capabilities: {
         relay: 5,
         sensor: 3
@@ -65,7 +70,7 @@ function listenForRegisterStatus() {
         }
         
         
-    }).listen(8080, clientIP);
+    }).listen(clientPort, clientIP);
 }
 
 
@@ -98,7 +103,7 @@ setInterval(function(){
         var data = {
             board_id: hostData.hostId,
             client_id: hostData.hostId,
-            sensor_id: 'SENSOR_3',
+            sensor_id: 'SENSOR_2',
             sensor_type: 'DIGITAL',
             sensor_value: 1
         };

@@ -1,6 +1,7 @@
 BlocklyStorage.backupOnUnload();
 
 var server = 'http://localhost:1010/';
+//var server = 'http://192.168.5.111:1010/';
 
 setTimeout(function () {
     BlocklyStorage.restoreBlocks();

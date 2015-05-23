@@ -28,11 +28,15 @@ module.exports = {
     updateHostRecord: function (hostData, callback) {
         DB.getClient().connect(DB.getUrl(), function (err, db) {
             var collection = db.collection('hosts');
-
+            
+            console.log('Atualizando dados do host para:');
+            console.log(hostData);
+            
             collection.update({hostId: hostData.hostId},
             {
                 $set: {
                     hostIP: hostData.hostIP,
+                    hostPort: hostData.hostPort,
                     capabilities: hostData.capabilities
                 }
             }, function (err, result) {
