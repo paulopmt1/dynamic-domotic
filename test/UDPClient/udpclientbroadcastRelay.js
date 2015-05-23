@@ -24,6 +24,12 @@ var hostData = {
 
 var message = new Buffer(JSON.stringify(hostData));
 
+// Após enviar mensagem de broadcast, ouve por conexão do servidor para confirmação
+sendBroadCastMessage(function(){
+    // Aguarda confirmação do servidor
+    listenForRegisterStatus();
+});
+
 function sendBroadCastMessage(callback) {
     var client = dgram.createSocket("udp4");
     client.bind();
@@ -38,6 +44,7 @@ function sendBroadCastMessage(callback) {
 }
 
 /**
+ * ############# Rotina HTTP Listening do Cliente ###############
  * Ouve retorno do servidor confirmando registro,
  * e então salva o ip do servidor
  */
@@ -103,45 +110,3 @@ function registerServerIP(ip){
     serverIP = ip;
     isRegistered = true;
 }
-
-// Após enviar mensagem de broadcast, ouve por conexão do servidor para confirmação
-sendBroadCastMessage(function(){
-    // Aguarda confirmação do servidor
-    listenForRegisterStatus();
-});
-
-
-
-
-
-
-setInterval(function(){
-    if (isRegistered){
-        var data = {
-            board_id: hostData.hostId,
-            client_id: hostData.hostId,
-            sensor_id: 'SENSOR_3',
-            sensor_type: 'DIGITAL',
-            sensor_value: 1
-        };
-        
-        var options = {
-            host: serverIP,
-            path: '/setSensorData',
-            method: 'POST',
-            port: serverPort,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Content-Length': Buffer.byteLength(querystring.stringify(data))
-            }
-        };
-        
-        
-        console.log('enviando dados do sensor para servidor: ' + serverIP);
-
-        var post = http.request(options, false);
-        post.write(querystring.stringify(data));
-        
-        post.end();
-    }
-},1000);

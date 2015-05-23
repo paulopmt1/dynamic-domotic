@@ -11,6 +11,11 @@ var clientPort = 8080;
 Host = require('./db/Host');
 
 module.exports = {
+    /**
+     * Recebe dados do cliente via UDP, e atualiza a base local com as informações do cliente
+     * @param {type} remoteAddress  IP do cliente   
+     * @param {type} hostObject     Dados do host (o que ele faz)
+     */
     proccessHostRegisterRequest: function (remoteAddress, hostObject) {
         var hostId = hostObject.hostId;
         // Concatena IP do host
