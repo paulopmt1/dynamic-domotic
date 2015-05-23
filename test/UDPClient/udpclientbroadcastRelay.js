@@ -6,16 +6,19 @@ var formidable = require('formidable'),
 var querystring = require('querystring');
 
 
-var broadcastAddress = "localhost";//"192.168.5.255";
-var clientIP = "localhost";//"192.168.5.109";
+var broadcastAddress = "192.168.5.255";
+var clientIP = "192.168.5.108";
 var serverPort = 1010;
 var serverIP = undefined;
 var isRegistered = false;
+
+var clientPort = 8082;
 
 // Cria um host com 5 relés e 3 sensores
 var hostData = {
     hostId: '2A44F',
     type: 'INOUT', // IN, OUT, INOUT
+    hostPort:clientPort,
     capabilities: {
         relay: 5,
         sensor: 3
@@ -68,7 +71,7 @@ function listenForRegisterStatus() {
         }
         
         
-    }).listen(8080, clientIP);
+    }).listen(clientPort, clientIP);
 }
 
 
@@ -88,7 +91,7 @@ function setRelayStatus(req, res){
 
     form.parse(req, function(err, fields, files) {
       res.writeHead(200, {'content-type': 'text/plain'});
-      console.log("Vou acionar o rele " + fields.relay + " com status " + fields.status);
+      console.log("Vou acionar o rele " + fields.relayId + " com status " + fields.relayStatus);
       //res.end(util.inspect({fields: fields, files: files}));
       res.end("OK");
     });
