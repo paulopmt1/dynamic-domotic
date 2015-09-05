@@ -24,5 +24,8 @@ module.exports = {
       topics[topic].forEach(function(item) {
             item(info != undefined ? info : {} );
       });
+    },
+    clearTopics: function(){
+        topics = {};
     }
 }

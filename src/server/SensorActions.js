@@ -69,6 +69,8 @@ function validateSensor(sensorData){
 function loadSystem(boardId, sensorId){
     // Carrega o sistema
     ServerWorkpace.getJavascriptCode(function(data){
+        PublishSubscribe.clearTopics();
+        
         console.log('Executando código javascript: ');
         console.log(data);
         eval(data);
@@ -145,7 +147,7 @@ function sendPostRelayToClient(clientIP, clientPort, relayId, relayStatus){
         }
     };
 
-    console.log('executando /setRelayStatus no o cliente ' + clientIP + ' na porta ' + clientPort + ' com os dados:');
+    console.log('executando /setRelayStatus no cliente ' + clientIP + ' na porta ' + clientPort + ' com os dados:');
     console.log(data);
 
     var post = http.request(options, false);

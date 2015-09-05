@@ -88,11 +88,15 @@ module.exports = {
             });
         }
 
-        // Envia após 3 segundos a confirmação de registro 
+        // Envia a confirmação de registro 
         // (por hora para permitir o cliente chavear seu comportamento
         setTimeout(function(){
-            console.log('enviando agora');
-            http.request(options, callback).end();
+            var req = http.request(options, callback);
+            req.on('error', function(error) {
+                console.log('Falha ao contactar host: ' + error);
+            });
+            
+            req.end();
         }, CLIENT_REGISTER_TIMEOUT);
     }
 };

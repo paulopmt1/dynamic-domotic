@@ -1,6 +1,6 @@
 var serverPort = 1010;
 var serverIP = "localhost";
-//var serverIP = "192.168.5.109";
+var serverIP = "192.168.5.109";
 var http = require('http');
 
 var formidable = require('formidable'),

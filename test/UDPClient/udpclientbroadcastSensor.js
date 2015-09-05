@@ -119,7 +119,9 @@ setInterval(function(){
 
         var post = http.request(options, false);
         post.write(querystring.stringify(data));
-        
+        post.on('error', function(error) {
+            console.log('Falha ao contactar servidor ' + options.host + ' - ' + error);
+        });
         post.end();
     }
 },1000);
