@@ -1,4 +1,5 @@
--- Implementar um cliente padrao para o módulo ESP8266
+-- Inclui funções para parsing http
+dofile("httpparsing.lua")
 
 serverPort = 1010
 hostPort = 8080
@@ -23,66 +24,26 @@ tmr.alarm(1, 3000, 0, function()
 		client:close()
 		collectgarbage()
 		
-		print("Método: " .. getHttpMethod(request))
-		print("Path: " .. getHttpUrl(request))
-		print("FormData: ")
-		for key, value in pairs(getFormPostData(request)) do
-			print("chave: " .. key)
-			--print("valor: " .. value)
+		getHttpMethod(request)
+		getHttpUrl(request)
+		
+--		print("Método: " .. getHttpMethod(request))
+--		print("Path: " .. getHttpUrl(request))
+		
+		if getHttpMethod(request) == "POST" then
+--			print("FormData: ")
+			for key, value in pairs(getFormPostData(request)) do
+--				print("chave: " .. key)
+--				print("valor: " .. value)
+			end
+		else
+--			print ("GetData: ")
+			for key, value in pairs(getFormGetData(request)) do
+--				print("chave: " .. key)
+--				print("valor: " .. value)
+			end
 		end
 	    end)
 	end)
 end)
-
-function getHttpMethod(request)
-	local array = splitArray(request, "\r\n")
-	local firstLine = array[1]
-
-	-- Obtém método HTTP
-	local words = splitArray(firstLine, " ")
-	return words[1]
-end
-
-function getHttpUrl(request)
-	local array = splitArray(request, "\r\n")
-	local firstLine = array[1]
-
-	-- Obtém método HTTP
-	local words = splitArray(firstLine, " ")
-	return words[2]
-end
-
-function getFormPostData(request)
-	local table = splitArray(request, "\r\n\r\n")
-	-- # retorna o tamanho da tabela associativa
-	local postFormUrlencodedData = table[#table]
-	local postItems = splitArray(postFormUrlencodedData, "&")
-
-	local returnItems = {}
-	
-	for key, value in pairs(postItems) do
-		local itemData = splitArray(value, "=")
-
-		local t = {}
-		t[itemData[1]] = itemData[2] 
-
-		returnItems[#table + 1] = t
-	end
-
-	return returnItems
-end
-
-
--- Divide string por um separador e retorna um array
-function splitArray(str, sep)
-    local array = {}
-    local reg = string.format("([^%s]+)",sep)
-    for mem in string.gmatch(str,reg) do
-        table.insert(array, mem)
-    end
-    return array
-end
-
-
-
 
